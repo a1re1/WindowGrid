@@ -1,0 +1,46 @@
+.matrixmanagebuttonright {
+  border: 0px;
+  background-color: #505050;
+  color: white;
+  border-radius: 0px;
+  padding: 0px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.matrixmanagebuttonleft {
+  border: 0px;
+  background-color: #505050;
+  color: white;
+  border-radius: 0px;
+  padding: 0px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.matrixmanagebutton {
+  border: 0px;
+  background-color: #505050;
+  color: white;
+  border-radius: 0px;
+  padding: 0px;
+}
+.matrixmanagebutton:hover {
+  border-width: 0px;
+  padding: 0px;
+}
+.matrixbutton {
+  border-width: 1px;
+  border-color: #505050;
+  background-color: #505050;
+  padding: 4px;
+  border-radius: 8px;
+}
+.matrixbutton:hover {
+  border-width: 1px;
+  border-color: #505050;
+  padding: 4px;
+  border-radius: 8px;
+  background-color: #606060;
+}
+.rounded {
+  border-radius: 8px;
+}

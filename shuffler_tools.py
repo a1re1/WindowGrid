@@ -106,14 +106,14 @@ def get_initialgrid():
         return [2, 2]
 
 
-def windowtarget(span, cols, rows, playfield, yoffset=0, overrule=None):
+def windowtarget(span, cols, rows, playfield, overrule=None, margin=0):
     # calculates the targeted position and size of a window
     colwidth = int(playfield[1][0] / cols)
     rowheight = int(playfield[1][1] / rows)
     window_width = (span[1][0] + 1 - span[0][0]) * colwidth
     window_height = (span[1][1] + 1 - span[0][1]) * rowheight
     originx = (span[0][0] * colwidth) + playfield[0][0]
-    originy = (span[0][1] * rowheight) + playfield[0][1] + yoffset
+    originy = (span[0][1] * rowheight) + playfield[0][1]
 
     # get scale factor
     display = Gdk.Display.get_default()
@@ -123,15 +123,19 @@ def windowtarget(span, cols, rows, playfield, yoffset=0, overrule=None):
     monitor = display.get_monitor_at_point(x, y)
     scale_factor = monitor.get_scale_factor()
 
+    xStart = originx * scale_factor
+    yStart = originy * scale_factor
+    # TODO only double margin when against monitor border
     return [
-        originx * scale_factor,
-        originy * scale_factor,
-        window_width * scale_factor,
-        window_height * scale_factor
+        (xStart if xStart > 0 else 0) + margin,
+        (yStart if yStart > 0 else 0) + margin,
+        window_width * scale_factor - (2 * margin),
+        window_height * scale_factor - (2 * margin)
     ]
 
 
 def shuffle(win, x, y, w, h):
+    print("window: " + str(win.get_geometry()))
     win.unmaximize()
     g = Wnck.WindowGravity.NORTHWEST
     flags = Wnck.WindowMoveResizeMask.X | \
