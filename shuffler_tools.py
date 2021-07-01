@@ -34,6 +34,10 @@ try:
 except FileExistsError:
     pass
 
+MAX_ROWS = 8
+MAX_COLUMNS = 20
+MARGIN = 16
+TITLE_BAR_OFFSET_Y = -32
 
 matr_file = os.path.join(userdata, "matrix")
 app_path = os.path.dirname(os.path.abspath(__file__))
@@ -58,7 +62,7 @@ def check_windowtype(window):
         pass
 
 
-def calc_playfield(win_geodata):
+def calc_monitor_dimensions(win_geodata):
     wins = win_geodata["windows"]
     offset = win_geodata["offset"]
     wa = win_geodata["wa"]
@@ -135,7 +139,6 @@ def windowtarget(span, cols, rows, playfield, overrule=None, margin=0):
 
 
 def shuffle(win, x, y, w, h):
-    print("window: " + str(win.get_geometry()))
     win.unmaximize()
     g = Wnck.WindowGravity.NORTHWEST
     flags = Wnck.WindowMoveResizeMask.X | \

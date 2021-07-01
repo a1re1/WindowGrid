@@ -16,10 +16,6 @@ import sys
 relPath = os.path.dirname(__file__)
 css_data = util.importFile(relPath + "/shuffler.css")
 
-MAX_ROWS = 8
-MAX_COLUMNS = 20
-MARGIN = 16
-
 class WindowShufflerMatrix(Gtk.Window):
 
     def __init__(self, args):
@@ -176,7 +172,7 @@ class WindowShufflerMatrix(Gtk.Window):
 
     def add_row(self):
         n_row = self.xycoords[1]
-        if n_row < MAX_ROWS:
+        if n_row < st.MAX_ROWS:
             newrow = []
             for c in range(self.xycoords[0]):
                 button = self.create_gridbutton(c, n_row)
@@ -200,7 +196,7 @@ class WindowShufflerMatrix(Gtk.Window):
 
     def add_column(self):
         next_col = self.xycoords[0]
-        if next_col < MAX_COLUMNS:
+        if next_col < st.MAX_COLUMNS:
             for r in range(self.xycoords[1]):
                 button = self.create_gridbutton(next_col, r)
                 self.grid_data[r].append(button)
@@ -285,9 +281,9 @@ class WindowShufflerMatrix(Gtk.Window):
         self.reset_alltiles()
 
     def move_window(self, button, row, col):
-        win_geodata = geo.get_windows_oncurrent(self.screendata)
+        win_geodata = geo.get_windows_oncurrent_stacked(self.screendata)
         windows = win_geodata["windows"]
-        playfield = st.calc_playfield(win_geodata)
+        playfield = st.calc_monitor_dimensions(win_geodata)
         try:
             if all([
                 self.curr_subject in windows,
@@ -301,15 +297,6 @@ class WindowShufflerMatrix(Gtk.Window):
                 )
         except AttributeError:
             self.send_notification()
-
-    def expand_window_right(self):
-        return
-
-    def shrink_window(self):
-        return
-
-    def move_window_pos(self):
-        return
 
     def do_move(self, button, row, col, playfield):
         self.reset_alltiles()
@@ -326,7 +313,7 @@ class WindowShufflerMatrix(Gtk.Window):
         self.sum_selection(totalspan)
         y_offs = st.get_yshift(self.curr_subject)
         trg = st.windowtarget(
-            totalspan, self.xycoords[0], self.xycoords[1], playfield, y_offs, margin = MARGIN
+            totalspan, self.xycoords[0], self.xycoords[1], playfield, y_offs, margin = st.MARGIN
         )
         st.shuffle(
             self.curr_subject,
@@ -438,9 +425,9 @@ def snap_all_to_grid(xc, yc, scr=None):
     if not scr:
         scr = Wnck.Screen.get_default()
         scr.force_update()
-    win_geodata = geo.get_windows_oncurrent(scr)
+    win_geodata = geo.get_windows_oncurrent_stacked(scr)
     windows = win_geodata["windows"]
-    playfield = st.calc_playfield(win_geodata)
+    playfield = st.calc_monitor_dimensions(win_geodata)
     origs = list(
         product(range(xc), range(yc))
     )
@@ -451,7 +438,7 @@ def snap_all_to_grid(xc, yc, scr=None):
         targeted_pos = origs[n]
         position_data.append(
             st.windowtarget(
-                [targeted_pos, targeted_pos], xc, yc, playfield, margin = MARGIN
+                [targeted_pos, targeted_pos], xc, yc, playfield, margin = st.MARGIN
             )
         )
     window_data = [

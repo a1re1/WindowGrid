@@ -36,7 +36,7 @@ def get_winlist(scr=None, selecttype=None):
     if not scr:
         scr = Wnck.Screen.get_default()
         scr.force_update()
-    windows = scr.get_windows()
+    windows = scr.get_windows_stacked()
     if selecttype:
         windows = [w for w in windows if check_windowtype(w, selecttype)]
     return windows
@@ -81,7 +81,7 @@ def get_plankstrutvals(span, strutvals, mpos):
     return left, right, top, bottom
 
 
-def get_windows_oncurrent(scr=None):
+def get_windows_oncurrent_stacked(scr=None):
     """
     returns all visible, non- minimized windows on current workspace, monitor
     position and working area
