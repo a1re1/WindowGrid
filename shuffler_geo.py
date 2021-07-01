@@ -4,49 +4,36 @@ import gi
 gi.require_version("Wnck", "3.0")
 from gi.repository import Wnck, Gdk
 
-def mousepos():
-    # find out mouse location
-    return Gdk.get_default_root_window().get_pointer()[1:3]
 
-
-def check_win_name(win):
-    # certain windows should be ignored
-    return win.get_name() not in [
-        "WindowMatrix", "Usage & general shortcuts"
-    ]
+"""
+WindowShuffler
+Author: Jacob Vlijm
+Co Author: Tyler Whitehurst
+Copyright © 2017-2018 Ubuntu Budgie Developers
+Website=https://ubuntubudgie.org
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or any later version. This
+program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+should have received a copy of the GNU General Public License along with this
+program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 
 def get_currmonitor_atpos(x, y, display=None):
-    """
-    fetch the current monitor (obj) at position. display is optional to save
-    fuel if it is already fetched elsewhere
-    """
     if not display:
         display = Gdk.Display.get_default()
     display = Gdk.Display.get_default()
     return display.get_monitor_at_point(x, y)
 
 
-def get_winlist(scr=None, selecttype=None):
-    """
-    get the window list. possible args: screen, select_type, in case it is
-    already fetched elsewhere. select type is optional, to fetch only
-    specific window types.
-    """
-    if not scr:
-        scr = Wnck.Screen.get_default()
-        scr.force_update()
-    windows = scr.get_windows_stacked()
-    if selecttype:
-        windows = [w for w in windows if check_windowtype(w, selecttype)]
-    return windows
+def get_winlist(scr):
+    return scr.get_windows_stacked()
 
 
 def get_strut(xid):
-    """
-    get the strut- values from xprop, on dock type windows. Since Plank is
-    an exception, the function indicates if the dock is a plank instance.
-    """
     s = "_NET_WM_STRUT(CARDINAL) = "
     strut_data = subprocess.check_output(
         ["xprop", "-id", xid]
@@ -60,10 +47,6 @@ def get_strut(xid):
 
 
 def get_plankstrutvals(span, strutvals, mpos):
-    """
-    since the set strut- values plank returns seem incorrect, we need to fix
-    it for multi-monitor situations.
-    """
     # get left_strutval - ok
     left = strutvals[0]
     left = left if left == 0 else left - mpos[0]
@@ -82,19 +65,15 @@ def get_plankstrutvals(span, strutvals, mpos):
 
 
 def get_windows_oncurrent_stacked(scr=None):
-    """
-    returns all visible, non- minimized windows on current workspace, monitor
-    position and working area
-    """
     # get screen / span size for if plank is on the right
     if not scr:
         scr = Wnck.Screen.get_default()
         scr.force_update()
     screensize = scr.get_width(), scr.get_height()
     # get all windows
-    relevants = get_winlist(scr, None)
-    mp = mousepos()
-    currmonitor = get_currmonitor_atpos(mp[0], mp[1])
+    relevants = get_winlist(scr)
+    mouse_position = Gdk.get_default_root_window().get_pointer()[1:3]
+    currmonitor = get_currmonitor_atpos(mouse_position[0], mouse_position[1])
     planks = []
     otherdocks = []
     normal = []
@@ -105,8 +84,7 @@ def get_windows_oncurrent_stacked(scr=None):
         if monitor == currmonitor:
             typedata = str(w.get_window_type())
             if "NORMAL" in typedata:
-                if check_win_name(w):
-                    normal.append(w)
+                normal.append(w)
             elif "DOCK" in typedata:
                 if w.get_name() == "plank":
                     planks.append(w)

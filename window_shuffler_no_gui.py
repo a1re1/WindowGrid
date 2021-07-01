@@ -8,6 +8,24 @@ import sys
 from shuffler_tools import app_path
 import subprocess
 
+
+"""
+WindowShuffler
+Author: Jacob Vlijm
+Co Author: Tyler Whitehurst
+Copyright © 2017-2018 Ubuntu Budgie Developers
+Website=https://ubuntubudgie.org
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or any later version. This
+program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+should have received a copy of the GNU General Public License along with this
+program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 """
 FXNS TO FETCH DATA
 """
@@ -111,6 +129,15 @@ def snap_window(window):
   shift_window(window, 0, 0)
 
 
+def snap_all_to_grid():
+  scr = Wnck.Screen.get_default()
+  scr.force_update()
+  win_geodata = geo.get_windows_oncurrent_stacked(scr)
+  windows = win_geodata["windows"]
+  for window in windows:
+    snap_window(window)
+
+
 def resize_window(window, resize_x, resize_y):
   grid_dimensions = get_grid_dimensions()
   current_tile_position = get_current_grid_position(window)
@@ -131,12 +158,7 @@ if __name__ == "__main__":
   shuffler_args = sys.argv[1:]
 
   if shuffler_args[0] == "s": # snap
-    scr = Wnck.Screen.get_default()
-    scr.force_update()
-    win_geodata = geo.get_windows_oncurrent_stacked(scr)
-    windows = win_geodata["windows"]
-    for window in windows:
-      snap_window(window)
+    snap_all_to_grid()
   elif shuffler_args[0] == "f": # fullscreen
     toggle_max()
   elif shuffler_args[0] == "m": # move active
@@ -149,3 +171,10 @@ if __name__ == "__main__":
     resize_y = int(shuffler_args[2])
     window = get_active_window()
     resize_window(window, resize_x, resize_y)
+  elif shuffler_args[0] == "rg": # resize grid
+    resize_x = int(shuffler_args[1])
+    resize_y = int(shuffler_args[2])
+    grid_dimensions = get_grid_dimensions()
+    new_x_dim = min(st.MAX_COLUMNS, max(1, grid_dimensions[0] + resize_x))
+    new_y_dim = min(st.MAX_ROWS, max(1, grid_dimensions[1] + resize_y))
+    save_grid(new_x_dim, new_y_dim)

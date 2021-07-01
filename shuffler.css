@@ -1,6 +1,6 @@
 .matrixmanagebuttonright {
   border: 0px;
-  background-color: #505050;
+  background-color: #353535;
   color: white;
   border-radius: 0px;
   padding: 0px;
@@ -9,7 +9,7 @@
 }
 .matrixmanagebuttonleft {
   border: 0px;
-  background-color: #505050;
+  background-color: #353535;
   color: white;
   border-radius: 0px;
   padding: 0px;
@@ -18,7 +18,7 @@
 }
 .matrixmanagebutton {
   border: 0px;
-  background-color: #505050;
+  background-color: #353535;
   color: white;
   border-radius: 0px;
   padding: 0px;
@@ -29,17 +29,17 @@
 }
 .matrixbutton {
   border-width: 1px;
-  border-color: #505050;
-  background-color: #505050;
+  border-color: #a0a0a0;
+  background-color: #353535;
   padding: 4px;
   border-radius: 8px;
 }
 .matrixbutton:hover {
   border-width: 1px;
-  border-color: #505050;
+  border-color: #d0d0d0;
   padding: 4px;
   border-radius: 8px;
-  background-color: #606060;
+  background-color: #3a3a3a;
 }
 .rounded {
   border-radius: 8px;
