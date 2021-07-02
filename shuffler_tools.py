@@ -82,9 +82,9 @@ def get_grid_modified_at():
 
 def shuffle(win, x, y, w, h):
   win.unmaximize()
-  g = Wnck.WindowGravity.NORTHWEST
+  north_west_corner = Wnck.WindowGravity.NORTHWEST
   flags = Wnck.WindowMoveResizeMask.X | \
     Wnck.WindowMoveResizeMask.Y | \
     Wnck.WindowMoveResizeMask.WIDTH | \
     Wnck.WindowMoveResizeMask.HEIGHT
-  win.set_geometry(g, flags, x, y, w, h)
+  win.set_geometry(north_west_corner, flags, x, y, w, h)
