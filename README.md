@@ -3,7 +3,7 @@
 ![grid](https://user-images.githubusercontent.com/26413204/124216071-5b4a3580-dac3-11eb-9a23-d9126cbf192f.gif)
 
 
-(This repo originally is a for of Window Shuffler for Budgie, but I ended up rewriting almost everything for my own preferences.)
+(This repo originally is a fork of Window Shuffler for Budgie, but I ended up rewriting almost everything for my own preferences.)
 
 This app functions similar to AppGrid for MacOS or PowerToys window managing for Windows.
 
