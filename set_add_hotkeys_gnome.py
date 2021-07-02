@@ -14,6 +14,7 @@ HOT_KEY_NAMES={
   "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/growwindowhorizontal/'",
   "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/shrinkwindowhorizontal/'",
   "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/growwindowvertical/'",
+  "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/shrinkwindowvertical/'",
   "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/movewindowleft/'",
   "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/movewindowright/'",
   "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/movewindowup/'",
@@ -62,10 +63,10 @@ def build_shuffle_command(args, cmd = SHUFFLE_COMMAND_NO_GUI):
 
 init_hotkeys(append_hotkeys_to_current(HOT_KEY_NAMES))
 set_hotkey("previewgrid", "'Preview Grid'", build_shuffle_command("", cmd = SHUFFLE_COMMAND), "'<Primary><Alt><Super>g'")
-set_hotkey("shrinkwindowhorizontal", "'Snap All Windows to Grid'", build_shuffle_command("s"), "'<Primary><Alt><Super>space'")
-set_hotkey("snapallwindows", "'Shrink Window Horizontal'", build_shuffle_command("r -1 0"), "'<Primary><Alt><Super>Left'")
+set_hotkey("snapallwindows", "'Snap All Windows to Grid'", build_shuffle_command("s"), "'<Primary><Alt><Super>space'")
+set_hotkey("shrinkwindowhorizontal", "'Shrink Window Horizontal'", build_shuffle_command("r -1 0"), "'<Primary><Alt><Super>Left'")
 set_hotkey("growwindowhorizontal", "'Grow Window Horizontal'", build_shuffle_command("r 1 0"), "'<Primary><Alt><Super>Right'")
-set_hotkey("shrinkwindowhorizontal", "'Shrink Window Vertical'", build_shuffle_command("r 0 -1"), "'<Primary><Alt><Super>Up'")
+set_hotkey("shrinkwindowvertical", "'Shrink Window Vertical'", build_shuffle_command("r 0 -1"), "'<Primary><Alt><Super>Up'")
 set_hotkey("growwindowvertical", "'Grow Window Vertical'", build_shuffle_command("r 0 1"), "'<Primary><Alt><Super>Down'")
 set_hotkey("movewindowleft", "'Move Window Left'", build_shuffle_command("m -1 0"), "'<Super>Left'")
 set_hotkey("movewindowright", "'Move Window Right'", build_shuffle_command("m 1 0"), "'<Super>Right'")
