@@ -5,6 +5,7 @@ import gi
 gi.require_version("Wnck", "3.0")
 from gi.repository import Wnck
 from gi.repository import Gdk
+from config import *
 
 
 """
@@ -32,12 +33,6 @@ try:
     os.makedirs(userdata)
 except FileExistsError:
     pass
-
-
-MAX_ROWS = 8
-MAX_COLUMNS = 20
-MARGIN = 16
-TITLE_BAR_OFFSET_Y = -32
 
 matr_file = os.path.join(userdata, "matrix")
 app_path = os.path.dirname(os.path.abspath(__file__))

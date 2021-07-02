@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 import os
+from config import *
 
-ABSOLUTE_PATH_TO_PYTHON = "/usr/bin/python3"
-ABSOLUTE_PATH_TO_SHUFFLER = "/home/tyler/projects/window-shuffler/window_shuffler"
-ABSOLUTE_PATH_TO_SHUFFLER_NO_GUI = "/home/tyler/projects/window-shuffler/window_shuffler_no_gui.py"
 SHUFFLE_COMMAND = "%s %s" % (ABSOLUTE_PATH_TO_PYTHON, ABSOLUTE_PATH_TO_SHUFFLER)
 SHUFFLE_COMMAND_NO_GUI = "%s %s" % (ABSOLUTE_PATH_TO_PYTHON, ABSOLUTE_PATH_TO_SHUFFLER_NO_GUI)
 
